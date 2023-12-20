@@ -1,0 +1,65 @@
+version: '3.2'
+services:   
+  taotf_tri:
+    container_name: taotf_tri
+    image: nvcr.io/nvidia/tao/tao-toolkit-tf:v3.22.05-tf1.15.4-py3
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./:/workspace/
+
+    runtime: nvidia
+    restart: unless-stopped
+    entrypoint: bash
+    shm_size: 64gb
+
+    environment:
+      PYTHONIOENCODING: utf-8
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+    stdin_open: true
+    tty: true
+    privileged: true
+  
+  taopyt_tri:
+    container_name: taopyt_tri
+    image: nvcr.io/nvidia/tao/tao-toolkit:5.0.0-pyt
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./:/workspace/
+
+    runtime: nvidia
+    restart: unless-stopped
+    shm_size: 64gb
+
+    environment:
+      PYTHONIOENCODING: utf-8
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+
+    stdin_open: true
+    tty: true
+    privileged: true
+
+  # ds_tri:
+  #   container_name: ds_tri
+  #   image: nvcr.io/nvidia/deepstream:6.2-devel
+  #   volumes:
+  #     - /etc/timezone:/etc/timezone:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - ./:/workspace/
+
+  #   runtime: nvidia
+  #   restart: unless-stopped
+  #   shm_size: 6gb
+    
+  #   environment:
+  #     PYTHONIOENCODING: utf-8
+  #     NVIDIA_VISIBLE_DEVICES: all
+  #     NVIDIA_DRIVER_CAPABILITIES: all
+
+  #   stdin_open: true
+  #   tty: true
+  #   privileged: true
